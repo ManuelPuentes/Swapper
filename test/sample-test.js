@@ -2,6 +2,8 @@ const { expect } = require("chai");
 const { ethers, upgrades, artifacts } = require("hardhat");
 
 const IERC20 = artifacts.require("IERC20.sol");
+const IUniswapV2Router02 = artifacts.require("IUniswapV2Router");
+
 
 
 
@@ -19,7 +21,7 @@ const USDT_ADDRESS = "0xdac17f958d2ee523a2206206994597c13d831ec7";
 
 describe("Swapper", () => {
 
-  let owner, agent_2, swapper;
+  let owner, agent_2, swapper, uniswap;
 
   beforeEach(async function () {
   
@@ -28,26 +30,32 @@ describe("Swapper", () => {
   
     swapper = await upgrades.deployProxy(Swapper, [owner.address]);
     await swapper.deployed();
-  
+
+    uniswap = await IUniswapV2Router02.at(UNI_ROUTER);
+
   });
 
 
   describe("swapper tests", ()=>{
 
-    it("Should swap ETH for DAI", async function () {
+    it("swap ETH for USDT", async function () {
       
-      // const daiToken = await IERC20.at(DAI_ADDRESS);
-      // const prev_balance = await daiToken.balanceOf(owner.address);
+      const usdtToken = await IERC20.at(USDT_ADDRESS);
+      const prev_balance = await usdtToken.balanceOf(owner.address);
 
-      // const tx = await swapper.swap(
-      //   DAI_ADDRESS,
-      //   { from: owner.address, value: web3.utils.toWei("100") }
-      // );
+      const ether = parseInt(web3.utils.toWei("100"));
+      const amountOutUsdt = await uniswap.getAmountsOut(String( ether ), [WETH_ADDRESS, USDT_ADDRESS]);
 
-      // const post_balance = await daiToken.balanceOf(owner.address);
+      const tx = await swapper.swap(
+        USDT_ADDRESS,
+        String(amountOutUsdt[1]),
+        { from: owner.address, value: web3.utils.toWei("100") }
+      );
 
-      // console.log(`the prev_balance of DAI tokens ${prev_balance}`);
-      // console.log(`the post_balance of DAI tokens ${post_balance}`);
+      const post_balance = await usdtToken.balanceOf(owner.address);
+
+      console.log(`the prev_balance of DAI tokens ${prev_balance}`);
+      console.log(`the post_balance of DAI tokens ${post_balance}`);
 
     });
 
@@ -59,19 +67,25 @@ describe("Swapper", () => {
       const prev_balance_dai = await daiToken.balanceOf(owner.address);
       const prev_balance_usdt = await usdtToken.balanceOf(owner.address);
 
+
+      const ether = (parseInt(web3.utils.toWei("100")) * 50)/100;
+
+      const amountOutUsdt = await uniswap.getAmountsOut(String( ether ), [WETH_ADDRESS, USDT_ADDRESS]);
+      const amountOutDai = await uniswap.getAmountsOut (String( ether ), [WETH_ADDRESS, DAI_ADDRESS]);
+
       const tx = await swapper.multipleSwaps({
 
         swapInfo: [
-          // { token_address: DAI_ADDRESS, percentage : 100},
-          { token_address: USDT_ADDRESS, percentage : 100},
+          { token_address: DAI_ADDRESS, percentage : 50, amountOut: String(amountOutDai[1]) },
+          { token_address: USDT_ADDRESS, percentage : 50, amountOut: String(amountOutUsdt[1]) }
         ]
 
       },
-      { from: owner.address, value: web3.utils.toWei("10") }
+      { from: owner.address, value: web3.utils.toWei("100") }
       );
 
       const post_balance_dai = await daiToken.balanceOf(owner.address);
-      const post_balance_usdt = await daiToken.balanceOf(owner.address);
+      const post_balance_usdt = await usdtToken.balanceOf(owner.address);
 
       console.log(`the prev_balance of DAI tokens ${prev_balance_dai}`);
       console.log(`the post_balance of DAI tokens ${post_balance_dai}`);
@@ -80,28 +94,11 @@ describe("Swapper", () => {
       console.log(`the prev_balance of USDT tokens ${prev_balance_usdt}`);
       console.log(`the post_balance of USDT tokens ${post_balance_usdt}`);
 
-      // console.log(tx);
-
     });
 
 
   })
   
-
-
-  
-  // const daiToken = await IERC20.at(DAI_ADDRESS);
-  // const balance = await daiToken.balanceOf(ACCOUNT);
-  // console.log("Dai Balance:", Number(web3.utils.fromWei(balance)));
-
-
-  // it("Should get amount of tokens to buy with 1 ETH", async () => {
-  //   let etherAmount = "1";
-  //   let x = await uniswap.getAmountsOut(web3.utils.toWei(etherAmount),[WETH,ALBT]);
-  //   amountToBuy = String(x[1]);
-  //   console.log(`Tokens available to buy`, amountToBuy)
-  // })
-
 
 
 });

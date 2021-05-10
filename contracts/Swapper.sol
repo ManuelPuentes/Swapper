@@ -11,6 +11,7 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 struct SwapInfo{
     address  token_address;
     uint percentage; // we need to divide between "100"
+    uint amountOut;
 }
 
 
@@ -38,15 +39,12 @@ contract Swapper is Initializable, OwnableUpgradeable {
 
     }
 
-    function swap(address to) payable public {
+    function swap(address to, uint amountOut ) payable public {
         require(msg.value > 0);
 
-        console.log("sender");
-        console.log(msg.sender);
-
         uint fee = msg.value.div(1000); // fee will be the 0.1% of each tx
+        uint value = msg.value.sub(fee); 
 
-        uint amountOut = msg.value.sub(fee); 
 
         address[] memory path = new address[](2);
         path[0] = uniswapRouter.WETH();
@@ -54,7 +52,7 @@ contract Swapper is Initializable, OwnableUpgradeable {
 
         uint deadline = block.timestamp.add(3600);
 
-        uniswapRouter.swapExactETHForTokens{value: amountOut }( amountOut, path , msg.sender, deadline);
+        uniswapRouter.swapExactETHForTokens{value: value }( amountOut.sub(amountOut.div(1000)), path , msg.sender, deadline);
 
         recipient.transfer(fee);
     }
@@ -63,18 +61,21 @@ contract Swapper is Initializable, OwnableUpgradeable {
         require(msg.value > 0);
         
         uint fee = msg.value.div(1000); // fee will be the 0.1% of each tx
-        uint value = msg.value.sub(fee);
+        uint256 value = msg.value.sub(fee);
 
         address[] memory path = new address[](2);
         path[0] = uniswapRouter.WETH();
+
+        uint deadline = block.timestamp.add(3600);
         
         
         for (uint i = 0 ; i < multipleSwapsInfo.swapInfo.length; i++ ){
             path[1] = multipleSwapsInfo.swapInfo[i].token_address;
 
-            uint amountOut = value.mul(multipleSwapsInfo.swapInfo[i].percentage.div(100));
+            uint amountOut = multipleSwapsInfo.swapInfo[i].amountOut;
 
-            uniswapRouter.swapExactETHForTokens{value: amountOut }( amountOut, path, msg.sender, block.timestamp.add(3600));
+            uniswapRouter.swapExactETHForTokens{value: value.mul(multipleSwapsInfo.swapInfo[i].percentage).div(100) }( amountOut.sub(amountOut.div(1000)) , path, msg.sender, deadline );
+
         }
         
         recipient.transfer(fee);
