@@ -1,0 +1,99 @@
+{
+  "manifestVersion": "3.2",
+  "impls": {
+    "a35f6dc3f3d53da4b2fd01717c7d23c8a5ef459b70e86d44c66f016278e487d5": {
+      "address": "0x09635F643e140090A9A8Dcd712eD6285858ceBef",
+      "txHash": "0x0d16755a9fb7139f2f38b1af1be733688f4bb2976e18579d1f7fe7dfa5ee1e0f",
+      "layout": {
+        "storage": [
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_bool",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:23"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:28"
+          },
+          {
+            "contract": "ContextUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:31"
+          },
+          {
+            "contract": "OwnableUpgradeable",
+            "label": "_owner",
+            "type": "t_address",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:20"
+          },
+          {
+            "contract": "OwnableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:74"
+          },
+          {
+            "contract": "Swapper",
+            "label": "uniswapRouter",
+            "type": "t_contract(IUniswapV2Router)1523",
+            "src": "contracts/Swapper.sol:27"
+          },
+          {
+            "contract": "Swapper",
+            "label": "recipient",
+            "type": "t_address_payable",
+            "src": "contracts/Swapper.sol:28"
+          }
+        ],
+        "types": {
+          "t_contract(IUniswapV2Router)1523": {
+            "label": "contract IUniswapV2Router"
+          },
+          "t_address_payable": {
+            "label": "address payable"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]"
+          },
+          "t_bool": {
+            "label": "bool"
+          }
+        }
+      }
+    }
+  },
+  "proxies": [
+    {
+      "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "kind": "transparent",
+      "txHash": "0x77ed48f508a0007942a317b46a161b8f2c8b1dbba4a6786e07780923c706a975"
+    },
+    {
+      "address": "0x67d269191c92Caf3cD7723F116c85e6E9bf55933",
+      "kind": "transparent",
+      "txHash": "0x0fcbd73dede5edd93478216340cbfb56e6e0b5a43c6cd9a9ecc21059a50a8bfd"
+    },
+    {
+      "address": "0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E",
+      "kind": "transparent",
+      "txHash": "0x8df0d85372a6497335054d9a8dad0630fd47e5465110a468adf36eff6720d1cf"
+    }
+  ],
+  "admin": {
+    "address": "0xc5a5C42992dECbae36851359345FE25997F5C42d",
+    "txHash": "0x19df747a794e3c9934a1b211c78ce4cd190755a3b074e36ac4bafc541a587224"
+  }
+}

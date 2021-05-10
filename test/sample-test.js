@@ -1,14 +1,107 @@
 const { expect } = require("chai");
+const { ethers, upgrades, artifacts } = require("hardhat");
 
-describe("Greeter", function() {
-  it("Should return the new greeting once it's changed", async function() {
-    const Greeter = await ethers.getContractFactory("Greeter");
-    const greeter = await Greeter.deploy("Hello, world!");
-    
-    await greeter.deployed();
-    expect(await greeter.greet()).to.equal("Hello, world!");
+const IERC20 = artifacts.require("IERC20.sol");
 
-    await greeter.setGreeting("Hola, mundo!");
-    expect(await greeter.greet()).to.equal("Hola, mundo!");
+
+
+const { web3 } = require('@openzeppelin/test-helpers/src/setup');
+
+// const { time } = require("@openzeppelin/test-helpers");
+
+
+const UNI_ROUTER = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D";
+const WETH_ADDRESS = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2";
+const DAI_ADDRESS = "0x6B175474E89094C44Da98b954EedeAC495271d0F";
+const USDT_ADDRESS = "0xdac17f958d2ee523a2206206994597c13d831ec7";
+
+
+
+describe("Swapper", () => {
+
+  let owner, agent_2, swapper;
+
+  beforeEach(async function () {
+  
+    [owner, agent_2] = await ethers.getSigners();
+    const Swapper = await ethers.getContractFactory("Swapper");
+  
+    swapper = await upgrades.deployProxy(Swapper, [owner.address]);
+    await swapper.deployed();
+  
   });
+
+
+  describe("swapper tests", ()=>{
+
+    it("Should swap ETH for DAI", async function () {
+      
+      // const daiToken = await IERC20.at(DAI_ADDRESS);
+      // const prev_balance = await daiToken.balanceOf(owner.address);
+
+      // const tx = await swapper.swap(
+      //   DAI_ADDRESS,
+      //   { from: owner.address, value: web3.utils.toWei("100") }
+      // );
+
+      // const post_balance = await daiToken.balanceOf(owner.address);
+
+      // console.log(`the prev_balance of DAI tokens ${prev_balance}`);
+      // console.log(`the post_balance of DAI tokens ${post_balance}`);
+
+    });
+
+    it("Several swaps tests", async function () {
+
+      const daiToken = await IERC20.at(DAI_ADDRESS);
+      const usdtToken = await IERC20.at(USDT_ADDRESS);
+
+      const prev_balance_dai = await daiToken.balanceOf(owner.address);
+      const prev_balance_usdt = await usdtToken.balanceOf(owner.address);
+
+      const tx = await swapper.multipleSwaps({
+
+        swapInfo: [
+          // { token_address: DAI_ADDRESS, percentage : 100},
+          { token_address: USDT_ADDRESS, percentage : 100},
+        ]
+
+      },
+      { from: owner.address, value: web3.utils.toWei("10") }
+      );
+
+      const post_balance_dai = await daiToken.balanceOf(owner.address);
+      const post_balance_usdt = await daiToken.balanceOf(owner.address);
+
+      console.log(`the prev_balance of DAI tokens ${prev_balance_dai}`);
+      console.log(`the post_balance of DAI tokens ${post_balance_dai}`);
+
+
+      console.log(`the prev_balance of USDT tokens ${prev_balance_usdt}`);
+      console.log(`the post_balance of USDT tokens ${post_balance_usdt}`);
+
+      // console.log(tx);
+
+    });
+
+
+  })
+  
+
+
+  
+  // const daiToken = await IERC20.at(DAI_ADDRESS);
+  // const balance = await daiToken.balanceOf(ACCOUNT);
+  // console.log("Dai Balance:", Number(web3.utils.fromWei(balance)));
+
+
+  // it("Should get amount of tokens to buy with 1 ETH", async () => {
+  //   let etherAmount = "1";
+  //   let x = await uniswap.getAmountsOut(web3.utils.toWei(etherAmount),[WETH,ALBT]);
+  //   amountToBuy = String(x[1]);
+  //   console.log(`Tokens available to buy`, amountToBuy)
+  // })
+
+
+
 });
