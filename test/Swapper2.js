@@ -20,7 +20,7 @@ const USDT_ADDRESS = "0xdac17f958d2ee523a2206206994597c13d831ec7";
 
 
 
-describe("Swapper", () => {
+describe("SwapperV2", () => {
 
   let owner, agent_2, swapper, uniswap;
 
@@ -44,13 +44,14 @@ describe("Swapper", () => {
       const daiToken = await IERC20.at(DAI_ADDRESS);
       const prev_balance = await daiToken.balanceOf(owner.address);
 
-      console.log(await swapper.swap2(
+      await swapper.swap(
         DAI_ADDRESS,
         { from: owner.address, value: web3.utils.toWei("1") }
-      ));
+      );
 
       const post_balance = await daiToken.balanceOf(owner.address);
 
+      //THIS BALANCE WILL HAVE THHE BALANCE OF THE PREV TEST STORAGED 
       console.log(`the prev_balance of DAI tokens ${prev_balance}`);
       console.log(`the post_balance of DAI tokens ${post_balance}`);
 

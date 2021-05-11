@@ -6,7 +6,6 @@ import "./interfaces/IUniswapV2Router.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
 struct SwapInfo{
     address  token_address;
@@ -21,7 +20,7 @@ struct MultipleSwapsInput{
 
 
 
-contract Swapper is Initializable, OwnableUpgradeable {
+contract Swapper is Initializable {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
