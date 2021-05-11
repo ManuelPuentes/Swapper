@@ -1,9 +1,9 @@
 {
   "manifestVersion": "3.2",
   "impls": {
-    "671ba805f5c34812d2822db9dc689380c5a37fc6af74f496d40725c5838eb87e": {
+    "98545d44dc78c0cab123e5ef0ea1d8dd41d1a61f5a309fcfe370af6e16325866": {
       "address": "0x09635F643e140090A9A8Dcd712eD6285858ceBef",
-      "txHash": "0xf6c10817d2a2fc9cf9774fdf0528cde74f6aa4aecfd58bcac02a49f7d2ecb5c6",
+      "txHash": "0x050cca6b6d3d201bbf23e4c7abe8b85c765f6633e307765ee229965bfb95926f",
       "layout": {
         "storage": [
           {
@@ -19,54 +19,33 @@
             "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:28"
           },
           {
-            "contract": "ContextUpgradeable",
-            "label": "__gap",
-            "type": "t_array(t_uint256)50_storage",
-            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:31"
-          },
-          {
-            "contract": "OwnableUpgradeable",
-            "label": "_owner",
-            "type": "t_address",
-            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:20"
-          },
-          {
-            "contract": "OwnableUpgradeable",
-            "label": "__gap",
-            "type": "t_array(t_uint256)49_storage",
-            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:74"
-          },
-          {
-            "contract": "Swapper",
+            "contract": "SwapperV2",
             "label": "uniswapRouter",
-            "type": "t_contract(IUniswapV2Router)1534",
-            "src": "contracts/Swapper.sol:28"
+            "type": "t_contract(IUniswapV2Router)1955",
+            "src": "contracts/SwapperV2.sol:28"
           },
           {
-            "contract": "Swapper",
+            "contract": "SwapperV2",
+            "label": "balancerRegistry",
+            "type": "t_contract(IBRegistry)1762",
+            "src": "contracts/SwapperV2.sol:29"
+          },
+          {
+            "contract": "SwapperV2",
             "label": "recipient",
             "type": "t_address_payable",
-            "src": "contracts/Swapper.sol:29"
+            "src": "contracts/SwapperV2.sol:31"
           }
         ],
         "types": {
-          "t_contract(IUniswapV2Router)1534": {
+          "t_contract(IUniswapV2Router)1955": {
             "label": "contract IUniswapV2Router"
+          },
+          "t_contract(IBRegistry)1762": {
+            "label": "contract IBRegistry"
           },
           "t_address_payable": {
             "label": "address payable"
-          },
-          "t_address": {
-            "label": "address"
-          },
-          "t_array(t_uint256)49_storage": {
-            "label": "uint256[49]"
-          },
-          "t_uint256": {
-            "label": "uint256"
-          },
-          "t_array(t_uint256)50_storage": {
-            "label": "uint256[50]"
           },
           "t_bool": {
             "label": "bool"
@@ -84,17 +63,17 @@
     {
       "address": "0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E",
       "kind": "transparent",
-      "txHash": "0x2de57e3f59a28417e150531b48fb6237cb8d1d926a9e58a8f8efbbf8666d3854"
+      "txHash": "0x34723797ea63ac602132cd5d79d8345e25a1972926e4c1dc404a6f537dcd7ccf"
     },
     {
       "address": "0x67d269191c92Caf3cD7723F116c85e6E9bf55933",
       "kind": "transparent",
-      "txHash": "0x8de459ff24b134c99860b34ca3e60b38c85ae82f937d47c4f75ae4fcba2aef69"
+      "txHash": "0x6be948d92e1c3370bb8e948992aa23a863be68d69f4cf8edfcd4e4dade65bd96"
     },
     {
       "address": "0xc3e53F4d16Ae77Db1c982e75a937B9f60FE63690",
       "kind": "transparent",
-      "txHash": "0xa5d3c73957f0453e4d86b53f21936028bb8ac4156e5f6fbdfab11fee35d18e62"
+      "txHash": "0x790abb9528bd1e90b56417a3b077fd1049dea24137689a3e294168a4d056d8ea"
     }
   ],
   "admin": {
