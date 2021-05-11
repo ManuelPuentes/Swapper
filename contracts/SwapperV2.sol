@@ -130,4 +130,8 @@ contract SwapperV2 is Initializable {
         payable(recipient).transfer(fee);
     }
 
+    function multipleSwaps(MultipleSwapsInput memory multipleSwapsInfo)payable public {
+        
+    }
+
 }

@@ -44,9 +44,9 @@
         }
       }
     },
-    "4c48ae97cc596460b9b06080f63e50ef0e1678a58e69198cbedbe96c74184a2b": {
+    "b1a0a8fb9f1c9248be8a5ddda7c5c2f5f010abf30c12ced362c37d60d1084dfd": {
       "address": "0x9E545E3C0baAB3E08CdfD552C960A1050f373042",
-      "txHash": "0xf980a08994001388dc2c4bbc7f461e871d0bc0ffa5cfcf11d5be8d3bb512e383",
+      "txHash": "0x41d149dc85981644e6c533b5c216af2899b93e0a6033f15d628058db6d2062d9",
       "layout": {
         "storage": [
           {
@@ -64,13 +64,13 @@
           {
             "contract": "SwapperV2",
             "label": "uniswapRouter",
-            "type": "t_contract(IUniswapV2Router)1955",
+            "type": "t_contract(IUniswapV2Router)1962",
             "src": "contracts/SwapperV2.sol:28"
           },
           {
             "contract": "SwapperV2",
             "label": "balancerRegistry",
-            "type": "t_contract(IBRegistry)1762",
+            "type": "t_contract(IBRegistry)1769",
             "src": "contracts/SwapperV2.sol:29"
           },
           {
@@ -81,10 +81,10 @@
           }
         ],
         "types": {
-          "t_contract(IUniswapV2Router)1955": {
+          "t_contract(IUniswapV2Router)1962": {
             "label": "contract IUniswapV2Router"
           },
-          "t_contract(IBRegistry)1762": {
+          "t_contract(IBRegistry)1769": {
             "label": "contract IBRegistry"
           },
           "t_address_payable": {
